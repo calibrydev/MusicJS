@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Music App</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+          /*This is the Css styling for the app*/
+          *{
+            padding: 0;
+            margin: 0;
+          }
+          /*This is The Parent Body For The APP*/
+        .Music{
+          position: relative;
+          background-color: black;
+          width:300px;
+          height: 400px;
+          border-radius: 1%;
+          margin-left: 36%;
+          margin-top: 10%;
+          color: white;
+        }
+        /*This is the  Style for the Image of The Artist  */
+        #cover{
+          width:43%;
+          height: 35%;
+          margin-top: 35%;
+          margin-left: 30%;
+          border-radius: 50%;
+        }
+        p{
+          margin-top: 10px;
+          text-align: center;
+        }
+        #Prev{
+          margin-left: 75px;
+          margin-top: 10px;
+          font-size: 20px;
+          color: white;
+          margin-right: 12px;
+        }
+      
+        #PLay{
+          margin-right: 12px;
+        }
+        button{
+          border: none;
+          padding: 3px;
+          background-color: transparent;
+        }
+        i{
+          color: white;
+          font-size: 20px;
+        }
+        #loop{
+          float: left;
+          margin-top: 13px;
+        }
+        .length{
+          background-color: white;
+          width: 70%;
+          height: 1vh;
+          border-radius: 40px;
+          margin-left: 40px;
+          margin-top: 10px;
+        }
+        #durationSlider{
+          width:0px;
+          height: 100%;
+          background-color: red;
+          border-radius: 40px;
+        } 
+          span{
+            position: absolute;
+          }
+          #startTime{
+            float: left;
+            left: 6px;
+            right: 45px;
+            bottom: 18%;
+          }
+          #endTime{
+            float: right;
+            margin-left: 78%;
+            bottom: 18%;
+          }
+          .faColor{
+            color:red;
+          }
+          .fa:hover{ 
+            color:red;
+          }
+          #allSongs{
+            margin-left: 50px;
+          }
+          #ListofSongs{
+            height: 200px;
+            width: 300px;
+            background-color: red;
+            position: absolute;
+            bottom: 0;
+            display: none;
+          }
+          #closeSongs{
+            font-size: 20px;
+            left: 90%;
+            top: 0px;
+            color: white;
+            position: absolute;
+          }
+          .nav{
+            position: absolute;
+            width: 23.5%;
+            height: 30px;
+            background-color: red;
+            position: fixed;
+          }
+          .SongsListt{
+            background-color: white;
+            width: 100%;
+            height: 85%;
+            margin-top: 10.2%;
+            overflow-y: scroll;
+          }
+          #ddiv{
+            width: 80%;
+            height: 7vh;
+            margin-left: 30px;
+            margin-top: 10px;
+            background-color: black;
+            display: flex;
+            justify-content: space-evenly;
+          }
+          #ddiv p{
+            font-size: 15px;
+            margin-top: 8px;
+          }
+          #ddiv p{
+
+            }
+        </style>
+    </head>
+    <body>
+      <h1 style="text-align: center;">Music App  BY Mark.Dev</h1>
+      <div class="Music">
+        <img src="unnamed.jpg" id="cover" alt="">
+        <audio id="Audio"  src="Didit.mp3"> </audio>
+        <p id="title">Did it Again</p>
+        <p id="Artist">Sinach </p> 
+        <span id="startTime"> 00 </span>
+        <div class="length"> 
+          <div id="durationSlider"> </div>
+        </div>
+        <span id="endTime"> 00 </span>
+
+        <button id="Prev"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        <button id="PLay"><i class="fa fa-play" aria-hidden="true"></i></button> 
+
+        <button id="Next"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+
+        <button id="loop"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+        <button id="allSongs"><i class="fa fa-list-ul" aria-hidden="true"></i></button>
+        <div id="ListofSongs">
+          <div class="nav">
+
+            <button> <i  class="fa fa-list-ul" aria-hidden="true"></i></button> <button id="closeSongs">x </button> </div>
+            <div class="SongsListt"> 
+              
+            </div>
+          </div>
+         
+      </div>
+        
+        <script>
+          //declaration of variables 
+
+
+          let Data=[
+            {
+              Artist:"sinach",
+              song:"Didit.mp3",
+              title:"Did It Again",
+              pic:"unnamed.jpg"
+            },
+            {
+              Artist:"ada",
+              song:"OnlyJesus.mp3",
+              title:"Only You Jesus",
+              pic:"ada.jpg"
+            },
+            {
+              Artist:"ada",
+              song:"ADA - I OVERCAMEThe Official Video.mp3",
+              title:"I Overcame",
+              pic:"ada.jpg"
+            }
+          
+
+
+
+          ]
+
+
+          let play=document.getElementById("PLay");
+          let Next=document.getElementById("Next");
+          let Prev=document.getElementById("Prev");
+          let Artist=document.getElementById("Artist");
+          let title=document.getElementById("title");
+          let image=document.getElementById("cover");
+          let Audio=document.getElementById("Audio");
+          let loop=document.getElementById("loop");
+          let allSongs=document.getElementById("allSongs");
+          let closeSongs=document.getElementById("closeSongs");
+         let ListofSongs= document.getElementById("ListofSongs");
+            let SongsListt=document.querySelector(".SongsListt");
+            console.log(play.childNodes[0].classList)
+          closeSongs.onclick=()=>{
+            document.getElementById("ListofSongs").style.display="none";
+          }
+          allSongs.onclick=()=>{
+            ListofSongs.style.display="block";
+          /*
+            let ddiv=document.createElement("div");
+          ddiv.setAttribute("id","ddiv");
+          SongsListt.appendChild(ddiv);
+          let nameofSSong=document.createElement("p");
+          nameofSSong.innerHTML="Did It Again";
+          let Artistts=document.createElement("p");
+          let durationofEach=document.createElement("p");
+          durationofEach.innerHTML="3:00";
+          Artistts.innerHTML="Sinach";
+          ddiv.appendChild(Artistts);
+          ddiv.appendChild(nameofSSong);       
+          ddiv.appendChild(durationofEach);
+
+          ddiv.onclick=()=>{
+            alert("new Song")
+          }
+          */
+          for(const key of Object.keys(Data))
+            {
+              let ddiv=document.createElement("div");
+              
+              ddiv.setAttribute("id","ddiv");
+              SongsListt.appendChild(ddiv);
+              let nameofSSong=document.createElement("p");
+              nameofSSong.innerHTML=Data[key].title;
+              let Artistts=document.createElement("p");
+              let durationofEach=document.createElement("p");
+              durationofEach.innerHTML="3:00";
+              Artistts.innerHTML=Data[key].Artist;
+              ddiv.appendChild(Artistts);
+              ddiv.appendChild(nameofSSong);       
+              ddiv.appendChild(durationofEach);
+              ddiv.onclick=()=>{
+              ListofSongs.style.display="none";
+
+                 Audio.src=Data[key].song;
+                    title.innerHTML=Data[key].title;
+                    Artist.innerHTML=Data[key].Artist;
+                    image.src=Data[key].pic; 
+                 Audio.play();
+
+
+
+
+
+
+
+              }
+            }
+
+
+
+
+          }
+       
+          let index=0;
+        
+            loop.onclick=()=>{
+              document.querySelector(".fa-repeat").classList.toggle("faColor");
+
+              if(Audio.loop==false){
+              Audio.loop=true;
+
+              }
+              else{
+                Audio.loop=false;
+              }
+            }
+            play.onclick=()=>{
+
+
+
+              if(Audio.paused){ 
+                Audio.play();
+
+                if(play.childNodes[0].classList.contains("fa-play")){
+                  play.childNodes[0].classList.remove("fa-play");
+                  play.childNodes[0].classList.add("fa-pause");
+                  
+                }
+              }
+              
+                else{
+                  Audio.pause();
+                   play.childNodes[0].classList.remove("fa-pause");
+                   play.childNodes[0].classList.add("fa-play");
+
+                }
+               
+                
+            }
+            Next.onclick=()=>{
+              index++;
+
+             
+
+
+              
+              if(play.childNodes[0].classList.contains("fa-play")){
+                  play.childNodes[0].classList.remove("fa-play");
+                  play.childNodes[0].classList.add("fa-pause");
+                  
+                }
+              
+              
+                else{
+                  Audio.pause();
+                   play.childNodes[0].classList.remove("fa-pause");
+                   play.childNodes[0].classList.add("fa-play");
+
+                }
+
+
+
+
+
+
+
+
+              durationsofSong();
+              if(index>Data.length-1){
+                index=0;
+
+              }
+
+              Audio.src=Data[index].song;
+              title.innerHTML=Data[index].title;
+              Artist.innerHTML=Data[index].Artist;
+              image.src=Data[index].pic;
+              Audio.play();
+
+
+            }
+            Prev.onclick=()=>{
+              index--;
+              if(index<0){
+                index=Data.length-1;
+              }
+          console.log(index);
+
+              Audio.src=Data[index].song;
+              image.src=Data[index].pic;
+              title.innerHTML=Data[index].title;
+              Audio.play();
+              Artist.innerHTML=Data[index].Artist;
+
+
+
+            }
+            //this is the functio that will deal with the duration of the song and the slider position
+            function durationsofSong(){
+              let x=setInterval(()=>{
+                let ad=Audio.duration;
+              let durationofSong=ad/60;
+
+              document.getElementById("endTime").innerHTML= durationofSong.toFixed(2);
+              
+
+              },1000)
+
+
+              let m=setInterval(()=>{
+                let durationofSong=Audio.duration/60;
+                
+                console.log(durationofSong);
+                let currentTime=Audio.currentTime/60;
+                let slider=currentTime/durationofSong;
+                document.getElementById("durationSlider").style.width=slider*100+"%";
+                document.getElementById("startTime").innerHTML=currentTime.toFixed(2);
+                if(Audio.ended){
+                  clearInterval(m);
+                }
+
+              },1000);
+            }
+
+
+
+
+
+
+        </script>
+    </body>
+</html>
